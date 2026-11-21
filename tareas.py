@@ -9,6 +9,16 @@ y devuelven la tarea afectada.
 """
 
 
+def _validar_titulo(titulo):
+    """Quita los espacios de los extremos y valida las reglas del título."""
+    titulo = titulo.strip()
+    if titulo == "":
+        raise ValueError("El título no puede estar vacío")
+    if len(titulo) > 80:
+        raise ValueError("El título no puede superar 80 caracteres")
+    return titulo
+
+
 def agregar(tareas, titulo):
     """Agrega una tarea nueva al final de la lista y la devuelve.
 
@@ -20,11 +30,7 @@ def agregar(tareas, titulo):
     - El id es el id más alto de la lista + 1 (1 si la lista está vacía).
     - La tarea nueva empieza con hecha = False.
     """
-    titulo = titulo.strip()
-    if titulo == "":
-        raise ValueError("El título no puede estar vacío")
-    if len(titulo) > 80:
-        raise ValueError("El título no puede superar 80 caracteres")
+    titulo = _validar_titulo(titulo)
 
     id_mayor = 0
     for tarea in tareas:
@@ -76,4 +82,10 @@ def editar(tareas, id_tarea, titulo):
       "No existe la tarea 7" (con el id que se pidió).
     - No cambia si la tarea está hecha o no.
     """
-    raise NotImplementedError("editar() aún no está implementada")
+    titulo = _validar_titulo(titulo)
+
+    for tarea in tareas:
+        if tarea["id"] == id_tarea:
+            tarea["titulo"] = titulo
+            return tarea
+    raise ValueError(f"No existe la tarea {id_tarea}")

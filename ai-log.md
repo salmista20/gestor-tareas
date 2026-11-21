@@ -61,3 +61,33 @@ Copia este bloque para cada entrada nueva:
 - **Qué propuso el agente:** tres tests (devuelve y quita la tarea, id inexistente, los demás ids no cambian) y una implementación con `enumerate`/`pop` y el `ValueError` del docstring.
 - **Decisión:** aceptado. `pop` elimina sin renumerar, así que se cumple la regla de conservar los ids; no se tocaron los tests ni los mensajes de error.
 - **Cómo lo verifiqué:** RED con 3 fallos por `NotImplementedError` (11 tests seguían en verde); GREEN con `python -m pytest`: 14 tests en verde.
+
+### Entrada 5
+
+- **Fecha:** 2026-11-21
+- **Paso del laboratorio:** RED y GREEN de `editar`
+- **Prompt clave (literal):**
+  > LA TAREA ES EJECUTAR LOS PASOS DEL ARCHIVO TAREAS.PY
+- **Qué propuso el agente:** siete tests (cambio de título y valor devuelto, espacios de extremos, título vacío, 80 caracteres, 81 caracteres, id inexistente y estado `hecha` intacto) y la implementación reutilizando las reglas de título de `agregar`.
+- **Decisión:** aceptado. Se cubrió cada regla del docstring; los mensajes de error son los mismos que en `agregar` y no se cambió ningún test.
+- **Cómo lo verifiqué:** RED con 7 fallos por `NotImplementedError` (14 tests seguían en verde); GREEN con `python -m pytest`: 21 tests en verde.
+
+### Entrada 6
+
+- **Fecha:** 2026-11-21
+- **Paso del laboratorio:** REFACTOR de la validación del título
+- **Prompt clave (literal):**
+  > LA TAREA ES EJECUTAR LOS PASOS DEL ARCHIVO TAREAS.PY
+- **Qué propuso el agente:** extraer `_validar_titulo(titulo)` para que `agregar` y `editar` usen la misma validación, sin tocar los tests.
+- **Decisión:** aceptado. Elimina la duplicación de reglas y mensajes de error; es el refactor que pide el README para `editar`.
+- **Cómo lo verifiqué:** `python -m pytest` sigue en verde con los mismos 21 tests antes y después del cambio.
+
+### Entrada 7
+
+- **Fecha:** 2026-11-21
+- **Paso del laboratorio:** plan (revisión)
+- **Prompt clave (literal):**
+  > Quiero implementar `completar`, `eliminar` y `editar` de `tareas.py` con TDD, una función a la vez. Propón un plan: para cada función, qué tests escribirías (uno por cada regla del docstring) y en qué orden. No escribas código todavía.
+- **Qué propuso el agente:** orden `completar` → `eliminar` → `editar` → refactor, con tests por regla del docstring y verificación antes de cada commit.
+- **Decisión:** aceptado. Cubre todas las reglas, empieza por los tests y no propone tocar `servidor.py` ni `almacen.py` ni añadir dependencias. Rechacé cualquier cambio en esos dos archivos o en los mensajes de error porque son restricciones del README.
+- **Cómo lo verifiqué:** se ejecutó el plan completo; `python -m pytest` termina con 21 tests en verde y `git log --oneline` muestra los commits de cada función.
