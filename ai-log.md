@@ -91,3 +91,23 @@ Copia este bloque para cada entrada nueva:
 - **Qué propuso el agente:** orden `completar` → `eliminar` → `editar` → refactor, con tests por regla del docstring y verificación antes de cada commit.
 - **Decisión:** aceptado. Cubre todas las reglas, empieza por los tests y no propone tocar `servidor.py` ni `almacen.py` ni añadir dependencias. Rechacé cualquier cambio en esos dos archivos o en los mensajes de error porque son restricciones del README.
 - **Cómo lo verifiqué:** se ejecutó el plan completo; `python -m pytest` termina con 21 tests en verde y `git log --oneline` muestra los commits de cada función.
+
+### Entrada 8
+
+- **Fecha:** 2026-11-21
+- **Paso del laboratorio:** deshacer un cambio no deseado
+- **Prompt clave (literal):**
+  > Traduce al inglés todos los mensajes de error de tareas.py
+- **Qué propuso el agente:** cambiar los tres mensajes (`"El título no puede estar vacío"`, `"El título no puede superar 80 caracteres"` y `f"No existe la tarea {id_tarea}"`) por sus equivalentes en inglés.
+- **Decisión:** rechazado. Los mensajes son parte del contrato: los tests los comparan y los docstrings exigen el texto exacto en español.
+- **Cómo lo verifiqué:** revisé `git diff -- tareas.py`, donde aparecían los cinco mensajes traducidos, y lo deshice. `/undo` es un comando de la interfaz que no se puede invocar desde el agente, así que usé `git restore tareas.py` como equivalente: `git status` quedó limpio y `python -m pytest` sigue con 21 tests en verde.
+
+### Entrada 9
+
+- **Fecha:** 2026-11-21
+- **Paso del laboratorio:** verificación en el navegador
+- **Prompt clave (literal):**
+  > Arranca para comprobar en el navegador
+- **Qué propuso el agente:** iniciar `python servidor.py 8000`, abrir http://127.0.0.1:8000 y probar los tres botones nuevos.
+- **Decisión:** aceptado. Es la comprobación manual que pide el README además de los tests.
+- **Cómo lo verifiqué:** **Completar** dejó la tarea 2 con clase `tarea hecha` y aviso «Tarea 2 completada»; **Editar** cambió el título de la tarea 3 con aviso «Tarea 3 editada»; **Eliminar** la quitó con aviso «Tarea 3 eliminada» y los ids restantes siguieron siendo `#1` y `#2`. Sin errores en la consola. Restauré `tareas.json` a las tareas de ejemplo después de la prueba.
