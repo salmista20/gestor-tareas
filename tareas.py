@@ -59,7 +59,10 @@ def eliminar(tareas, id_tarea):
       "No existe la tarea 7" (con el id que se pidió).
     - Los ids de las demás tareas no cambian.
     """
-    raise NotImplementedError("eliminar() aún no está implementada")
+    for indice, tarea in enumerate(tareas):
+        if tarea["id"] == id_tarea:
+            return tareas.pop(indice)
+    raise ValueError(f"No existe la tarea {id_tarea}")
 
 
 def editar(tareas, id_tarea, titulo):

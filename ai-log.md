@@ -51,3 +51,13 @@ Copia este bloque para cada entrada nueva:
 - **Qué propuso el agente:** escribió tres tests (devuelve y marca la tarea, id inexistente, tarea ya hecha) sin tocar `tareas.py`, y después implementó la función con búsqueda por id y `ValueError` exacto.
 - **Decisión:** aceptado. Un test por cada regla del docstring, con el estilo de los tests de `agregar`; la implementación no cambió mensajes de error ni modificó tests.
 - **Cómo lo verifiqué:** en RED, los 3 tests nuevos fallaron con `NotImplementedError` y los 8 anteriores pasaron; en GREEN, `python -m pytest` da 11 tests en verde.
+
+### Entrada 4
+
+- **Fecha:** 2026-11-21
+- **Paso del laboratorio:** RED y GREEN de `eliminar`
+- **Prompt clave (literal):**
+  > LA TAREA ES EJECUTAR LOS PASOS DEL ARCHIVO TAREAS.PY
+- **Qué propuso el agente:** tres tests (devuelve y quita la tarea, id inexistente, los demás ids no cambian) y una implementación con `enumerate`/`pop` y el `ValueError` del docstring.
+- **Decisión:** aceptado. `pop` elimina sin renumerar, así que se cumple la regla de conservar los ids; no se tocaron los tests ni los mensajes de error.
+- **Cómo lo verifiqué:** RED con 3 fallos por `NotImplementedError` (11 tests seguían en verde); GREEN con `python -m pytest`: 14 tests en verde.

@@ -7,7 +7,7 @@ antes de implementar cada función.
 
 import pytest
 
-from tareas import agregar, completar
+from tareas import agregar, completar, eliminar
 
 
 def test_agregar_devuelve_la_tarea_y_la_pone_al_final():
@@ -95,3 +95,38 @@ def test_completar_tarea_ya_hecha_sigue_hecha():
     tarea = completar(tareas, 1)
     assert tarea["hecha"] is True
     assert tareas[0]["hecha"] is True
+
+
+def test_eliminar_devuelve_la_tarea_y_la_quita_de_la_lista():
+    tareas = [
+        {"id": 1, "titulo": "Estudiar", "hecha": False},
+        {"id": 2, "titulo": "Leer", "hecha": False},
+        {"id": 3, "titulo": "Practicar", "hecha": True},
+    ]
+    tarea = eliminar(tareas, 2)
+    assert tarea == {"id": 2, "titulo": "Leer", "hecha": False}
+    assert [t["id"] for t in tareas] == [1, 3]
+    assert len(tareas) == 2
+
+
+def test_eliminar_id_inexistente_da_error():
+    tareas = [
+        {"id": 1, "titulo": "Estudiar", "hecha": False},
+        {"id": 2, "titulo": "Leer", "hecha": False},
+    ]
+    with pytest.raises(ValueError, match="No existe la tarea 7"):
+        eliminar(tareas, 7)
+    assert tareas == [
+        {"id": 1, "titulo": "Estudiar", "hecha": False},
+        {"id": 2, "titulo": "Leer", "hecha": False},
+    ]
+
+
+def test_eliminar_no_cambia_los_ids_de_las_demas():
+    tareas = [
+        {"id": 1, "titulo": "Estudiar", "hecha": False},
+        {"id": 5, "titulo": "Leer", "hecha": False},
+        {"id": 9, "titulo": "Practicar", "hecha": False},
+    ]
+    eliminar(tareas, 5)
+    assert [t["id"] for t in tareas] == [1, 9]
