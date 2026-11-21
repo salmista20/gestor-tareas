@@ -41,3 +41,13 @@ Copia este bloque para cada entrada nueva:
 - **Qué propuso el agente:** creó `AGENTS.md` en la raíz con los comandos `python -m pytest` y `python servidor.py`, las restricciones de archivos y dependencias, el contrato de mensajes de error y el flujo TDD.
 - **Decisión:** aceptado. No incluyó descripción archivo por archivo ni consejos genéricos, porque se deducen leyendo el código; sí incluyó lo que no se puede adivinar: no tocar `servidor.py` ni `almacen.py`, no añadir dependencias, mensajes de error exactos de los docstrings y no cambiar tests para que pasen.
 - **Cómo lo verifiqué:** leí el archivo y comprobé los comandos en la máquina: `python -m pytest` da 8 tests en verde. Instalé Python 3.12, pytest y Git porque no estaban disponibles; luego hice `git init` y el commit base.
+
+### Entrada 3
+
+- **Fecha:** 2026-11-21
+- **Paso del laboratorio:** RED y GREEN de `completar`
+- **Prompt clave (literal):**
+  > LA TAREA ES EJECUTAR LOS PASOS DEL ARCHIVO TAREAS.PY
+- **Qué propuso el agente:** escribió tres tests (devuelve y marca la tarea, id inexistente, tarea ya hecha) sin tocar `tareas.py`, y después implementó la función con búsqueda por id y `ValueError` exacto.
+- **Decisión:** aceptado. Un test por cada regla del docstring, con el estilo de los tests de `agregar`; la implementación no cambió mensajes de error ni modificó tests.
+- **Cómo lo verifiqué:** en RED, los 3 tests nuevos fallaron con `NotImplementedError` y los 8 anteriores pasaron; en GREEN, `python -m pytest` da 11 tests en verde.

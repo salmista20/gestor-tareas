@@ -7,7 +7,7 @@ antes de implementar cada función.
 
 import pytest
 
-from tareas import agregar
+from tareas import agregar, completar
 
 
 def test_agregar_devuelve_la_tarea_y_la_pone_al_final():
@@ -64,3 +64,34 @@ def test_agregar_la_tarea_nueva_empieza_sin_hacer():
     tareas = [{"id": 1, "titulo": "Estudiar", "hecha": True}]
     tarea = agregar(tareas, "Leer")
     assert tarea["hecha"] is False
+
+
+def test_completar_devuelve_la_tarea_y_la_marca_como_hecha():
+    tareas = [
+        {"id": 1, "titulo": "Estudiar", "hecha": False},
+        {"id": 2, "titulo": "Leer", "hecha": False},
+    ]
+    tarea = completar(tareas, 2)
+    assert tarea == {"id": 2, "titulo": "Leer", "hecha": True}
+    assert tareas[1] == tarea
+    assert tareas[0] == {"id": 1, "titulo": "Estudiar", "hecha": False}
+
+
+def test_completar_id_inexistente_da_error():
+    tareas = [
+        {"id": 1, "titulo": "Estudiar", "hecha": False},
+        {"id": 2, "titulo": "Leer", "hecha": False},
+    ]
+    with pytest.raises(ValueError, match="No existe la tarea 7"):
+        completar(tareas, 7)
+    assert tareas == [
+        {"id": 1, "titulo": "Estudiar", "hecha": False},
+        {"id": 2, "titulo": "Leer", "hecha": False},
+    ]
+
+
+def test_completar_tarea_ya_hecha_sigue_hecha():
+    tareas = [{"id": 1, "titulo": "Estudiar", "hecha": True}]
+    tarea = completar(tareas, 1)
+    assert tarea["hecha"] is True
+    assert tareas[0]["hecha"] is True

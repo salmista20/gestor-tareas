@@ -44,7 +44,11 @@ def completar(tareas, id_tarea):
       "No existe la tarea 7" (con el id que se pidió).
     - Completar una tarea que ya está hecha no es un error: sigue hecha.
     """
-    raise NotImplementedError("completar() aún no está implementada")
+    for tarea in tareas:
+        if tarea["id"] == id_tarea:
+            tarea["hecha"] = True
+            return tarea
+    raise ValueError(f"No existe la tarea {id_tarea}")
 
 
 def eliminar(tareas, id_tarea):
