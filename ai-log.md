@@ -29,3 +29,15 @@ Copia este bloque para cada entrada nueva:
 - **Qué propuso el agente:** creó `AGENTS.md` con un resumen del proyecto, cómo ejecutarlo y una descripción de los archivos.
 - **Decisión:** ajustado. Quité la descripción archivo por archivo, porque el agente la puede deducir leyendo el código. Agregué lo que no puede adivinar: que `servidor.py` y `almacen.py` no se modifican, que los mensajes de error deben ser exactamente los del docstring y que nunca se cambia un test solo para que pase.
 - **Cómo lo verifiqué:** leí el archivo completo antes de guardarlo y comprobé que los comandos que menciona funcionan: `python -m pytest` pasa los tests de `agregar` y `python servidor.py` abre la página.
+
+## Entradas de la sesión
+
+### Entrada 2
+
+- **Fecha:** 2026-11-21
+- **Paso del laboratorio:** memoria del proyecto (`AGENTS.md`)
+- **Prompt clave (literal):**
+  > instala agents.MD
+- **Qué propuso el agente:** creó `AGENTS.md` en la raíz con los comandos `python -m pytest` y `python servidor.py`, las restricciones de archivos y dependencias, el contrato de mensajes de error y el flujo TDD.
+- **Decisión:** aceptado. No incluyó descripción archivo por archivo ni consejos genéricos, porque se deducen leyendo el código; sí incluyó lo que no se puede adivinar: no tocar `servidor.py` ni `almacen.py`, no añadir dependencias, mensajes de error exactos de los docstrings y no cambiar tests para que pasen.
+- **Cómo lo verifiqué:** leí el archivo y comprobé los comandos en la máquina: `python -m pytest` da 8 tests en verde. Instalé Python 3.12, pytest y Git porque no estaban disponibles; luego hice `git init` y el commit base.
